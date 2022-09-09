@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:todos_app/todo.dart';
+import 'package:todos_app/models/todo.dart';
 
 class TodosCubit extends Cubit<List<Todo>> {
   TodosCubit() : super(const [
@@ -11,4 +11,9 @@ class TodosCubit extends Cubit<List<Todo>> {
   void addTodo(Todo todo){
     emit([...state, todo]);
   }
+
+  void deleteTodo(int id){
+    emit(state.where((element) => element.id != id).toList());
+  }
+
 }
