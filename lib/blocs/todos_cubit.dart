@@ -8,8 +8,18 @@ class TodosCubit extends Cubit<List<Todo>> {
     Todo(3, 'title 3', 'description 3'),
   ]);
 
-  void addTodo(Todo todo){
-    emit([...state, todo]);
+  void addTodo(String title, String description){
+    emit([...state, Todo(state.length + 1, title, description)]);
+  }
+
+  void editTodo(Todo myTodo){
+    emit([
+      for(final todo in state)
+        if(todo.id == myTodo.id)
+          Todo(todo.id, myTodo.title, myTodo.description)
+      else
+        todo
+    ]);
   }
 
   void deleteTodo(int id){

@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:bloc/bloc.dart';
-import 'package:todos_app/models/AppSettings.dart';
+import 'package:todos_app/models/app_settings.dart';
 
 class AppSettingsCubit extends Cubit<AppSettings>{
   AppSettingsCubit() : super(const AppSettings(false, Brightness.light));

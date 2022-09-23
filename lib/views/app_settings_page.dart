@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todos_app/blocs/app_settings_cubit.dart';
-import 'package:todos_app/models/AppSettings.dart';
+import 'package:todos_app/models/app_settings.dart';
 
 class AppSettingsPage extends StatelessWidget {
   const AppSettingsPage({Key? key}) : super(key: key);

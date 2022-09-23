@@ -1,5 +1,6 @@
-import 'dart:ui';
+import 'package:flutter/foundation.dart';
 
+@immutable
 class AppSettings{
   final bool useMaterial3;
   final Brightness themeBrightness;

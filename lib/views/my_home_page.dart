@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todos_app/blocs/search_bloc/search_bloc.dart';
 import 'package:todos_app/views/app_settings_page.dart';
+import 'package:todos_app/views/search_page.dart';
+import 'package:todos_app/views/todo_card_page.dart';
 
 import '../blocs/todos_cubit.dart';
 import '../models/todo.dart';
@@ -13,6 +16,9 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Todo List'),
+        leading: IconButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => BlocProvider(
+          create: (_) => SearchBloc(context.read<TodosCubit>().state),
+            child: const SearchPage()))), icon: const Icon(Icons.search),),
         actions: [
           IconButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AppSettingsPage())), icon: const Icon(Icons.settings))
         ],
@@ -49,6 +55,11 @@ class MyHomePage extends StatelessWidget {
                         leading: Text(state[index].id.toString()),
                         title: Text(state[index].title),
                         subtitle: Text(state[index].description),
+                        trailing: IconButton(onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (_) => BlocProvider.value(
+                            value: context.read<TodosCubit>(),
+                              child: TodoCardPage(todo: state[index]))));
+                        }, icon: const Icon(Icons.edit),),
                       ),
                     ),
                   );
@@ -60,7 +71,11 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.read<TodosCubit>().addTodo(const Todo(4, 'title 4', 'description 4')),
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => BlocProvider.value(
+              value: context.read<TodosCubit>(),
+              child: const TodoCardPage())));
+        },
         tooltip: 'Add',
         child: const Icon(Icons.add),
       ),
