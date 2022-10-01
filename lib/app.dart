@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todos_app/blocs/app_settings_cubit.dart';
 import 'package:todos_app/models/app_settings.dart';
+import 'package:todos_app/network/network_service.dart';
+import 'package:todos_app/repositories/todos_repository.dart';
 import 'package:todos_app/views/my_home_page.dart';
 
-import 'blocs/todos_cubit.dart';
+import 'blocs/todos_cubit/todos_cubit.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -22,7 +24,7 @@ class App extends StatelessWidget {
             brightness: state.themeBrightness
           ),
           home: BlocProvider(
-              create: (_) => TodosCubit(),
+              create: (_) => TodosCubit(TodosRepository(DioNetworkService())),
               child: const MyHomePage()),
         );
       }

@@ -21,6 +21,7 @@ class AppSettingsPage extends StatelessWidget {
               children: [
                 const Text('Use Material 3'),
                 BlocBuilder<AppSettingsCubit, AppSettings>(
+                  buildWhen: (previous, current) => current.useMaterial3 != previous.useMaterial3,
                   builder: (context, state) {
                     return Switch(value: state.useMaterial3, onChanged: (value) => context.read<AppSettingsCubit>().changeMaterial3Usage(value));
                   }
@@ -32,6 +33,7 @@ class AppSettingsPage extends StatelessWidget {
               children: [
                 const Text('Dark theme'),
                 BlocBuilder<AppSettingsCubit, AppSettings>(
+                  buildWhen: (previous, current) => current.themeBrightness != previous.themeBrightness,
                   builder: (context, state) {
                     return Switch(value: state.themeBrightness == Brightness.dark ? true : false, onChanged: (value){
                       context.read<AppSettingsCubit>().changeThemeBrightness(value ? Brightness.dark : Brightness.light);

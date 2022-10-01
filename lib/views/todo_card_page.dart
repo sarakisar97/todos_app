@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todos_app/blocs/todos_cubit.dart';
 
+import '../blocs/todos_cubit/todos_cubit.dart';
 import '../models/todo.dart';
 
 class TodoCardPage extends StatelessWidget {
