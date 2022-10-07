@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todos_app/blocs/search_bloc/search_bloc.dart';
+import 'package:todos_app/injection_container.dart';
 import 'package:todos_app/views/app_settings_page.dart';
 import 'package:todos_app/views/search_page.dart';
 import 'package:todos_app/views/todo_card_page.dart';
@@ -15,10 +16,11 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Todo List'),
         leading: BlocBuilder<TodosCubit, TodosState>(
+          buildWhen: (previous, current) => !(previous is TodosLoadSuccess && current is TodosLoadSuccess),
           builder: (context, state){
             if(state is TodosLoadSuccess){
               return IconButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => BlocProvider(
-                  create: (_) => SearchBloc(state.todos),
+                  create: (_) => getIt<SearchBloc>(param1: state.todos),
                   child: const SearchPage()))), icon: const Icon(Icons.search),);
             }
             return const SizedBox.shrink();
@@ -84,6 +86,7 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: BlocBuilder<TodosCubit, TodosState>(
+        buildWhen: (previous, current) => !(previous is TodosLoadSuccess && current is TodosLoadSuccess),
         builder: (context, state){
           if(state is TodosLoadSuccess){
             return FloatingActionButton(
